@@ -1,5 +1,6 @@
 import React, { Component } from "react";
 import Cell from "./Cell";
+import Sound from "./Boing.mp3";
 
 class Board extends Component {
   state = {
@@ -211,6 +212,7 @@ class Board extends Component {
 
   handleCellClick(x, y) {
     let win = false;
+    let s = new Audio(Sound);
 
     // check if revealed. return if true.
     if (this.state.boardData[x][y].isRevealed) return null;
@@ -218,9 +220,8 @@ class Board extends Component {
     // check if mine. game over if true
     if (this.state.boardData[x][y].isMine) {
       this.revealBoard();
-      let music = new Audio("Boing.mp3");
-      music.play();
       alert("BOOM 💣💣💣💣💣 .. Game Over!");
+      s.play();
     }
 
     let updatedData = this.state.boardData;
